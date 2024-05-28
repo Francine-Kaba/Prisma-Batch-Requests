@@ -31,3 +31,275 @@ action        String
 details       String?
 }
 
+
+
+// model time_logs {
+//   id                          Int       @id @default(autoincrement())
+//   user_id                     Int
+//   task_name                   String
+//   project_id                  Int?
+//   category_id                 Int
+//   duration                    String
+//   overtime                    String? 
+//   missing                     String? 
+//   over_schedule               String? 
+//   start_time                  DateTime
+//   end_time                    DateTime
+//   date                        DateTime
+//   billability_status          Boolean     @default(false)
+//   created_at                  DateTime?
+//   created_by                  Int?
+//   updated_at                  DateTime?
+//   updated_by                  Int?
+//   approved                    Boolean       @default(false)
+//   approved_at                 DateTime?
+//   approved_by                 Int?
+//   is_validated                Boolean      @default(false)
+//   validated_by                Int?
+//   validated_at                DateTime?
+//   is_locked                   Boolean      @default(false)
+//   category                    categories  @relation(fields: [category_id], references: [id])
+//   employee_bios               employee_bios?  @relation(fields: [user_id], references: [user_id])
+//   project                     project?             @relation(fields: [project_id], references: [id])
+// }
+// model time_tracker {
+//   id                          Int       @id @default(autoincrement())
+//   user_id                     Int
+//   task_name                   String
+//   project_id                  Int?
+//   category_id                 Int
+//   duration                    String
+//   overtime                    String? 
+//   missing                     String? 
+//   over_schedule               String? 
+//   start_time                  DateTime
+//   end_time                    DateTime
+//   date                        DateTime
+//   billability_status          Boolean     @default(false)
+//   created_at                  DateTime?
+//   created_by                  Int?
+//   updated_at                  DateTime?
+//   updated_by                  Int?
+//   teamsheet                   teamsheet?
+//   category                    categories  @relation(fields: [category_id], references: [id])
+//   employee_bios               employee_bios?  @relation(fields: [user_id], references: [user_id])
+//   project                     project?             @relation(fields: [project_id], references: [id])
+// }
+
+// model clock_configuration {
+//   id                 Int       @id @default(autoincrement())
+//   working_days       Json
+//   working_start_time DateTime
+//   working_end_time   DateTime
+//   working_capacity   String
+//   overtime_capacity  Int       @default(0)
+//   overtime_state     Boolean   @default(false)
+//   lock_day           String?
+//   lunch_break        Int
+//   created_at         DateTime?
+//   created_by         Int?
+//   updated_at         DateTime?
+//   updated_by         Int?
+// }
+
+// model categories {
+//   id            Int            @id @default(autoincrement())
+//   category_name String
+//   description   String?
+//   project_based Boolean        @default(false)
+//   created_at    DateTime?
+//   created_by    Int?
+//   updated_at    DateTime?
+//   updated_by    Int?
+//   deleted       Boolean        @default(false)
+//   deleted_at    DateTime?
+//   deleted_by    Int?
+//   task_planner  task_planner[]
+//   time_tracker  time_tracker[]
+//   time_logs     time_logs[]
+// }
+
+// model task_planner {
+//   id                        Int       @id @default(autoincrement())
+//   user_id                   Int       
+//   task_name                 String   
+//   category_id               Int   
+//   project_id                Int?
+//   is_checked                Boolean   @default(false)
+//   start_time                DateTime
+//   end_time                  DateTime
+//   duration                  String
+//   date                      DateTime
+//   overtime                  String?
+//   missing                   String?
+//   created_at                DateTime?
+//   created_by                Int?
+//   updated_at                DateTime?
+//   updated_by                Int?
+//   category                  categories  @relation(fields: [category_id], references: [id])
+//   employee_bios             employee_bios?  @relation(fields: [user_id], references: [user_id])
+//   project                   project?             @relation(fields: [project_id], references: [id])
+
+// }
+
+// model preference_settings {
+//   id                Int       @id @default(autoincrement())
+//   user_id           Int
+//   morning           Boolean   @default(false)
+//   afternoon         Boolean   @default(false)
+//   evening           Boolean   @default(false)
+//   song_name         String
+//   planning_reminder Boolean   @default(false)
+//   lunchtime         DateTime
+//   created_at        DateTime?
+//   created_by        Int?
+//   updated_at        DateTime?
+//   updated_by        Int?
+//   song              songs     @relation(fields: [song_name], references: [song_name])
+// }
+
+// model songs {
+//   id                  Int                   @id @default(autoincrement())
+//   song_name           String                @unique
+//   song_url            String
+//   created_at          DateTime?
+//   created_by          Int?
+//   updated_at          DateTime?
+//   updated_by          Int?
+//   preference_settings preference_settings[]
+// }
+
+// model teamsheet {
+//   id              Int          @id @default(autoincrement())
+//   time_tracker_id Int          @unique
+//   approve_status  String       @default("Pending")
+//   assessed_at     DateTime?
+//   assessed_by     Int?
+//   is_validated    Boolean      @default(false)
+//   validated_by    Int?
+//   validated_at    DateTime?
+//   is_locked       Boolean      @default(false)
+//   time_tracker    time_tracker @relation(fields: [time_tracker_id], references: [id], onDelete: Cascade)
+// }
+
+// model employee_bios {
+//   id                          Int                           @id 
+//   user_id                     Int?                          @unique
+//   first_name                  String?
+//   last_name                   String?
+//   other_name                  String?
+//   full_name                   String?
+//   profile_image               String?
+//   deleted                     Boolean?                      @default(false)
+//   created_at                  DateTime?
+//   created_by                  Int?
+//   updated_at                  DateTime?
+//   updated_by                  Int?
+//   access_level_id             Int?
+//   employee_contacts           employee_contacts?   @relation(fields: [user_id], references: [user_id])
+//   access_level                access_level? @relation(fields: [access_level_id], references: [id])
+//   time_tracker                time_tracker[]
+//   time_logs                   time_logs[]
+//   task_planner                task_planner[]
+//   project_staffs              project_staffs[]
+//   employee_infos              employee_infos[]
+// }
+// model employee_infos {
+//   id                          Int                @id 
+//   user_id                     Int?               
+//   position_id                 Int?
+//   department_id               Int?
+//   active                      Boolean                @default(false)
+//   specialization_id           Int?
+//   employee_bio                employee_bios?          @relation(fields: [user_id], references: [user_id])
+//   positions                   positions?         @relation(fields: [position_id], references: [id])
+//   department                  departments?            @relation(fields: [department_id], references: [id])
+//   specialization              specialization?            @relation(fields: [specialization_id], references: [id])
+// }
+
+// model employee_contacts {
+//   id                          Int              @id 
+//   user_id                     Int?             @unique 
+//   work_email                  String
+//   phone_number_1              String?
+//   employee_bios               employee_bios[]
+
+// }
+
+// model positions {
+//   id                          Int              @id
+//   position_name               String           @unique
+//   deleted                     Boolean?         @default(false)
+//   employee_infos              employee_infos[]
+// }
+
+// model departments {
+//   id                          Int                     @id
+//   department_name             String
+//   deleted                     Boolean?                @default(false)
+//   clocking_departments        Boolean?                @default(false)
+//   employee_infos              employee_infos[]
+// }
+
+// model specialization {
+//   id                        Int                    @id 
+//   name                      String
+//   archive                   Boolean                @default(false)
+//   employee_infos            employee_infos[]
+// }
+// model project {
+//   id                          Int              @id 
+//   name                        String
+//   description                 String?
+//   client_id                   Int?
+//   business_manager_id         Int?
+//   technical_manager_id        Int?
+//   project_confirmation_status Boolean?          @default(false)
+//   project_status              String?
+//   project_staffing_status     String?
+//   start_date                  DateTime?
+//   end_date                    DateTime?
+//   archive                     Boolean          @default(false)
+//   created_at                  DateTime?
+//   archived_at                 DateTime?
+//   created_by                  Int?
+//   updated_at                  DateTime?
+//   updated_by                  Int?
+//   project_staffs              project_staffs[]
+//   task_planner                task_planner[]
+//   time_tracker                time_tracker[]
+//   time_logs                   time_logs[]
+// }
+
+// model project_staffs {
+//   id                  Int           @id 
+//   user_id             Int
+//   project_id          Int?
+//   project_hours       Int?
+//   billability_status  String?
+//   confirmation_status String?
+//   role                String
+//   active              Boolean?      @default(false)
+//   project_start_date  DateTime?
+//   project_end_date    DateTime?
+//   project             project?       @relation(fields: [project_id], references: [id])
+//   access_level        access_level       @relation(fields: [role], references: [name])
+//   employee_bios       employee_bios @relation(fields: [user_id], references: [user_id])
+// }
+
+// model access_level {
+//   id                                Int          @id @default(autoincrement())
+//   name                              String       @unique
+//   description                       String?
+//   permissions                       Json
+//   created_by                        Int?
+//   created_at                        DateTime?    @default(now())
+//   updated_by                        Int?
+//   updated_at                        DateTime?    @updatedAt
+//   can_approve                       Boolean? @default(false)
+//   can_validate                      Boolean? @default(false)
+//   default_access                    Boolean? @default(false)
+//   employee_bios                     employee_bios[]
+//   project_staffs                    project_staffs[] 
+  
+// }
